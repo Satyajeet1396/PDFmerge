@@ -37,3 +37,4 @@ if st.button("Create Binder") and uploaded_files:
 else:
     st.info("Upload PDF files and click 'Create Binder' to proceed.")
 st.info("Created by Dr. Satyajeet Patil")
+st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
