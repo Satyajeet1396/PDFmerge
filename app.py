@@ -35,5 +35,5 @@ if st.button("Create Binder") and uploaded_files:
 
     st.success("Binder created successfully! Click the button to download.")
 else:
-    st.info("Upload PDF files and click 'Create Binder' to proceed.
-    Created by Dr. Satyajeet Patil")
+    st.info("Upload PDF files and click 'Create Binder' to proceed.")
+st.info("Created by Dr. Satyajeet Patil")
