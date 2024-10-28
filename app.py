@@ -38,3 +38,12 @@ else:
     st.info("Upload PDF files and click 'Create Binder' to proceed.")
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
+
+
+<!-- hitwebcounter Code START -->
+<a href="https://www.hitwebcounter.com" target="_blank">
+<img src="https://hitwebcounter.com/counter/counter.php?page=17093822&style=0030&nbdigits=5&type=page&initCount=124" title="Counter Widget" Alt="Visit counter For Websites"   border="0" /></a>                                    
+                                    
+                                        
+                                          
+                            
