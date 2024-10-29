@@ -80,3 +80,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+st.info("A small donation from you can fuel our research journey, turning ideas into breakthroughs that can change lives!")
