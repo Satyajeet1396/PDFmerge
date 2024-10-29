@@ -58,6 +58,15 @@ buffer.seek(0)
 # Display the QR code image in Streamlit
 st.image(buffer, width=200)  # Adjust the width if needed
 
+# Center-align the QR code image using HTML and CSS
+st.markdown(
+    """
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="data:image/png;base64,{0}" width="300">
+    </div>
+    """.format(buffer.getvalue().hex()),
+    unsafe_allow_html=True
+)
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
