@@ -46,8 +46,8 @@ st.markdown(
     <style>
     .fixed-button {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        bottom: 50px;
+        right: 50px;
     }
     </style>
     <div class="fixed-button">
