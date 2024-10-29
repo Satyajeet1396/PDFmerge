@@ -44,7 +44,7 @@ st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
 # Title of the section
-st.title("UPI Payment")
+st.title("Support our Research")
 st.write("Scan the QR code below to make a payment to: satyajeet1396@oksbi")
 
 # Generate the UPI QR code
