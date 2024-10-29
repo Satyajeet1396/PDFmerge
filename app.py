@@ -38,5 +38,7 @@ else:
     st.info("Upload PDF files and click 'Create Binder' to proceed.")
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="researcher13" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Support our Research" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
                           
                             
