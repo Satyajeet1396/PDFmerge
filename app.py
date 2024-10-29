@@ -40,23 +40,15 @@ st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
 
-# Display a "Buy Me a Coffee" button as a right-floating image link
-st.markdown(
-    """
-    <style>
-    .fixed-button {
-        position: fixed;
-        bottom: 50px;
-        right: 50px;
-    }
-    </style>
-    <div class="fixed-button">
-        <a href="https://www.buymeacoffee.com/researcher13" target="_blank">
-            <img src="https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg" alt="Support me on Buy Me a Coffee" style="height: 50px; width: 50px;">
-        </a>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+
+# Display custom "Buy Me a Coffee" button
+bmc_button = """
+<div align="center">
+    <a href="https://www.buymeacoffee.com/researcher13" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Support our Research" style="height: 50px; width: 217px;">
+    </a>
+</div>
+"""
+st.markdown(bmc_button, unsafe_allow_html=True)
 
 
