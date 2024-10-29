@@ -40,7 +40,6 @@ else:
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
-
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
     """
