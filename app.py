@@ -17,8 +17,9 @@ if st.button("Create Binder") and uploaded_files:
     # Process each uploaded file
     for uploaded_file in uploaded_files:
         pdf_reader = PdfReader(uploaded_file)
-        first_page = pdf_reader.pages[0]
-        pdf_writer.add_page(first_page)
+        if pdf_reader.num_pages > 0:  # Check if there's at least one page
+            first_page = pdf_reader.pages[0]
+            pdf_writer.add_page(first_page)
 
     # Save the result to an in-memory file
     binder_output = BytesIO()
@@ -40,17 +41,12 @@ else:
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
-
-
-
 # Displaying the QR code image in Streamlit
 st.title("UPI Payment")
 st.write("Scan the QR code below to make a payment:")
 
 # Load and display the QR code image
-st.image("https://github.com/Satyajeet1396/PDFmerge/blob/824406d925cce62f2184ab03e8a2db0e7ff8604b/QR%20Code.jpeg", width=300)  # Adjust width as needed
-
-
+st.image("https://github.com/Satyajeet1396/PDFmerge/blob/824406d925cce62f2184ab03e8a2db0e7ff8604b/QR%20Code.jpeg", width=300)
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
