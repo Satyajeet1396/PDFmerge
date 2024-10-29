@@ -63,7 +63,7 @@ qr_base64 = base64.b64encode(buffer.getvalue()).decode()
 st.markdown(
     f"""
     <div style="display: flex; justify-content: center; align-items: center;">
-        <img src="data:image/png;base64,{qr_base64}" width="300">
+        <img src="data:image/png;base64,{qr_base64}" width="200">
     </div>
     """,
     unsafe_allow_html=True
