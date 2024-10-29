@@ -36,19 +36,19 @@ if st.button("Create Binder") and uploaded_files:
     st.success("Binder created successfully! Click the button to download.")
 else:
     st.info("Upload PDF files and click 'Create Binder' to proceed.")
+
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
 
-
-# Display custom "Buy Me a Coffee" button
-bmc_button = """
-<div align="center">
-    <a href="https://www.buymeacoffee.com/researcher13" target="_blank">
-        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Support our Research" style="height: 50px; width: 217px;">
-    </a>
-</div>
-"""
-st.markdown(bmc_button, unsafe_allow_html=True)
-
-
+# Display the "Buy Me a Coffee" button as an image link
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="https://www.buymeacoffee.com/researcher13" target="_blank">
+            <img src="https://img.buymeacoffee.com/button-api/?text=Support our Research&emoji=&slug=researcher13&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="Support our Research"/>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
