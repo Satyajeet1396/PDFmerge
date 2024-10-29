@@ -46,7 +46,7 @@ st.title("UPI Payment")
 st.write("Scan the QR code below to make a payment:")
 
 # Load and display the QR code image
-st.image("https://github.com/Satyajeet1396/PDFmerge/blob/59d3df9446e7f6829d743a26315d83a633336ffc/QR%20Code.jpeg", width=300)
+st.image("https://github.com/Satyajeet1396/PDFmerge/blob/59d3df9446e7f6829d743a26315d83a633336ffc/QR%20Code.jpeg", width=500)
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
