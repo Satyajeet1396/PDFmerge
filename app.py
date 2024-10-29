@@ -2,6 +2,7 @@ import streamlit as st
 from PyPDF2 import PdfReader, PdfWriter
 from io import BytesIO
 import qrcode
+import base64
 
 # Title of the app
 st.title("PDF Binder Tool")
@@ -42,7 +43,6 @@ else:
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
-
 # Title of the section
 st.title("UPI Payment")
 st.write("Scan the QR code below to make a payment to: satyajeet1396@oksbi")
@@ -56,16 +56,18 @@ buffer = BytesIO()
 qr.save(buffer, format="PNG")
 buffer.seek(0)
 
+# Convert the image to Base64
+qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+
 # Center-align the QR code image using HTML and CSS
 st.markdown(
-    """
+    f"""
     <div style="display: flex; justify-content: center; align-items: center;">
-        <img src="data:image/png;base64,{0}" width="300">
+        <img src="data:image/png;base64,{qr_base64}" width="300">
     </div>
-    """.format(buffer.getvalue().hex()),
+    """,
     unsafe_allow_html=True
 )
-
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
