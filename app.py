@@ -42,6 +42,7 @@ else:
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
+
 # Title of the section
 st.title("UPI Payment")
 st.write("Scan the QR code below to make a payment to: satyajeet1396@oksbi")
@@ -55,9 +56,6 @@ buffer = BytesIO()
 qr.save(buffer, format="PNG")
 buffer.seek(0)
 
-# Display the QR code image in Streamlit
-st.image(buffer, width=200)  # Adjust the width if needed
-
 # Center-align the QR code image using HTML and CSS
 st.markdown(
     """
@@ -67,6 +65,7 @@ st.markdown(
     """.format(buffer.getvalue().hex()),
     unsafe_allow_html=True
 )
+
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
