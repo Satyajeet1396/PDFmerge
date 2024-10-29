@@ -1,6 +1,7 @@
 import streamlit as st
 from PyPDF2 import PdfReader, PdfWriter
 from io import BytesIO
+import qrcode
 
 # Title of the app
 st.title("PDF Binder Tool")
@@ -41,12 +42,22 @@ else:
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
-# Displaying the QR code image in Streamlit
+# Title of the section
 st.title("UPI Payment")
-st.write("Scan the QR code below to make a payment:")
+st.write("Scan the QR code below to make a payment to: satyajeet1396@oksbi")
 
-# Load and display the QR code image
-st.image("https://github.com/Satyajeet1396/PDFmerge/blob/59d3df9446e7f6829d743a26315d83a633336ffc/QR%20Code.jpeg", width=500)
+# Generate the UPI QR code
+upi_url = "upi://pay?pa=satyajeet1396@oksbi&pn=Satyajeet Patil&cu=INR"
+qr = qrcode.make(upi_url)
+
+# Save the QR code image to a BytesIO object
+buffer = BytesIO()
+qr.save(buffer, format="PNG")
+buffer.seek(0)
+
+# Display the QR code image in Streamlit
+st.image(buffer, width=300)  # Adjust the width if needed
+
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
