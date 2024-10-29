@@ -56,7 +56,7 @@ qr.save(buffer, format="PNG")
 buffer.seek(0)
 
 # Display the QR code image in Streamlit
-st.image(buffer, width=300)  # Adjust the width if needed
+st.image(buffer, width=100)  # Adjust the width if needed
 
 
 # Display the "Buy Me a Coffee" button as an image link
