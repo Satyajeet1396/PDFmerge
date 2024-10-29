@@ -43,6 +43,14 @@ st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/
 
 
 
+# Displaying the QR code image in Streamlit
+st.title("UPI Payment")
+st.write("Scan the QR code below to make a payment:")
+
+# Load and display the QR code image
+st.image("https://github.com/Satyajeet1396/PDFmerge/blob/824406d925cce62f2184ab03e8a2db0e7ff8604b/QR%20Code.jpeg", width=300)  # Adjust width as needed
+
+
 
 # Display the "Buy Me a Coffee" button as an image link
 st.markdown(
