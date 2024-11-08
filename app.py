@@ -17,7 +17,7 @@ def create_pdf_binder(files):
     for uploaded_file in files:
         try:
             pdf_reader = PdfReader(uploaded_file)
-            if pdf_reader.num_pages > 0:
+            if len(pdf_reader.pages) > 0:  # Updated to check page count
                 first_page = pdf_reader.pages[0]
                 pdf_writer.add_page(first_page)
         except Exception as e:
