@@ -11,52 +11,61 @@ st.write("Upload multiple PDF files, and we'll combine their first pages into on
 # File uploader for multiple PDF files
 uploaded_files = st.file_uploader("Upload PDF files", type="pdf", accept_multiple_files=True)
 
+# Function to create a PDF binder
+def create_pdf_binder(files):
+    pdf_writer = PdfWriter()
+    for uploaded_file in files:
+        try:
+            pdf_reader = PdfReader(uploaded_file)
+            if pdf_reader.num_pages > 0:
+                first_page = pdf_reader.pages[0]
+                pdf_writer.add_page(first_page)
+        except Exception as e:
+            st.warning(f"Could not process file {uploaded_file.name}: {e}")
+    return pdf_writer
+
 # Button to create binder
 if st.button("Create Binder") and uploaded_files:
-    # Initialize a PdfWriter object
-    pdf_writer = PdfWriter()
+    pdf_writer = create_pdf_binder(uploaded_files)
+    if pdf_writer.pages:
+        # Save the result to an in-memory file
+        binder_output = BytesIO()
+        pdf_writer.write(binder_output)
+        binder_output.seek(0)
 
-    # Process each uploaded file
-    for uploaded_file in uploaded_files:
-        pdf_reader = PdfReader(uploaded_file)
-        if pdf_reader.num_pages > 0:  # Check if there's at least one page
-            first_page = pdf_reader.pages[0]
-            pdf_writer.add_page(first_page)
-
-    # Save the result to an in-memory file
-    binder_output = BytesIO()
-    pdf_writer.write(binder_output)
-    binder_output.seek(0)
-
-    # Create a download button
-    st.download_button(
-        label="Download Binder PDF",
-        data=binder_output,
-        file_name="binder.pdf",
-        mime="application/pdf"
-    )
-
-    st.success("Binder created successfully! Click the button to download.")
+        # Create a download button
+        st.download_button(
+            label="Download Binder PDF",
+            data=binder_output,
+            file_name="binder.pdf",
+            mime="application/pdf"
+        )
+        st.success("Binder created successfully! Click the button to download.")
+    else:
+        st.warning("No pages found in the uploaded PDF files.")
 else:
     st.info("Upload PDF files and click 'Create Binder' to proceed.")
 
+# Info section about the creator
 st.info("Created by Dr. Satyajeet Patil")
 st.info("For more cool apps like this visit: https://patilsatyajeet.wixsite.com/home/python")
 
-# Title of the section
+# Title of the section for QR code
 st.title("Support our Research")
 st.write("Scan the QR code below to make a payment to: satyajeet1396@oksbi")
 
-# Generate the UPI QR code
+# Generate the UPI QR code (caching for performance)
+@st.cache_data
+def generate_qr_code(data):
+    qr = qrcode.make(data)
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    buffer.seek(0)
+    return buffer
+
+# Create and display the QR code
 upi_url = "upi://pay?pa=satyajeet1396@oksbi&pn=Satyajeet Patil&cu=INR"
-qr = qrcode.make(upi_url)
-
-# Save the QR code image to a BytesIO object
-buffer = BytesIO()
-qr.save(buffer, format="PNG")
-buffer.seek(0)
-
-# Convert the image to Base64
+buffer = generate_qr_code(upi_url)
 qr_base64 = base64.b64encode(buffer.getvalue()).decode()
 
 # Center-align the QR code image using HTML and CSS
