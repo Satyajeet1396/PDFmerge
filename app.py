@@ -4,9 +4,17 @@ from io import BytesIO
 import qrcode
 import base64
 
+# Add health check endpoint
+@st.experimental_route("/healthz")
+def health_check():
+    return "OK", 200
+
 # Title of the app
 st.title("PDF Binder Tool")
 st.write("Upload multiple PDF files, and we'll combine their first pages into one PDF for download.")
+
+# [Rest of your original code remains unchanged...]
+# ... (all the existing PDF processing and UI code below remains the same)
 
 # Container for uploading files
 with st.container():
