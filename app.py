@@ -12,12 +12,7 @@ st.write("Upload multiple PDF files, and we'll combine their first pages into on
 if 'uploader_key' not in st.session_state:
     st.session_state['uploader_key'] = 0
 
-# Clear / Reboot App button: Increment the uploader key to force reinitialization.
-if st.button("Clear / Reboot App"):
-    st.session_state['uploader_key'] += 1
-    st.success("App state cleared.")
-
-# Use the uploader key in the file uploader widget.
+# Container for uploading files
 st.subheader("📄 Upload PDF Files")
 st.write("Upload your PDF files to create a binder with the first pages of each file.")
 uploaded_files = st.file_uploader(
@@ -58,6 +53,11 @@ if uploaded_files:
         st.success("Binder created successfully!")
     else:
         st.warning("No pages found in the uploaded PDF files.")
+    
+    # Clear / Reboot App button placed after the binder is created.
+    if st.button("Clear / Reboot App"):
+        st.session_state['uploader_key'] += 1
+        st.success("App state cleared. Please re-upload your files if needed.")
 else:
     st.info("Upload PDF files to automatically create a binder.")
 
