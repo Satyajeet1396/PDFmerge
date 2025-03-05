@@ -11,9 +11,15 @@ st.write("Upload multiple PDF files, and we'll combine their first pages into on
 # Clear/Reboot Button: When clicked, clear caches and rerun the app
 if st.button("Clear / Reboot App"):
     # Clear all cached data (e.g., the QR code cache)
-    st.cache_data.clear()
-    # Rerun the app to reset state (this will remove any uploaded files)
-    st.experimental_rerun()
+    try:
+        st.cache_data.clear()
+    except Exception:
+        # For older versions of Streamlit that don't support st.cache_data
+        st.warning("Cache clearing is not supported in your version of Streamlit.")
+    try:
+        st.experimental_rerun()
+    except AttributeError:
+        st.error("Your version of Streamlit does not support experimental_rerun(). Please update Streamlit to use this feature.")
 
 # Container for uploading files
 st.subheader("📄 Upload PDF Files")
