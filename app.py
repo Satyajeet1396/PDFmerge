@@ -8,38 +8,39 @@ import base64
 st.title("PDF Binder Tool")
 st.write("Upload multiple PDF files, and we'll combine their first pages into one PDF for download.")
 
-# Clear/Reboot Button: When clicked, clear caches and rerun the app
-if st.button("Clear / Reboot App"):
-    # Clear all cached data (e.g., the QR code cache)
-    try:
-        st.cache_data.clear()
-    except Exception:
-        # For older versions of Streamlit that don't support st.cache_data
-        st.warning("Cache clearing is not supported in your version of Streamlit.")
-    try:
-        st.experimental_rerun()
-    except AttributeError:
-        st.error("Your version of Streamlit does not support experimental_rerun(). Please update Streamlit to use this feature.")
+# Initialize a session state key for the uploader if it doesn't exist.
+if 'uploader_key' not in st.session_state:
+    st.session_state['uploader_key'] = 0
 
-# Container for uploading files
+# Clear / Reboot App button: Increment the uploader key to force reinitialization.
+if st.button("Clear / Reboot App"):
+    st.session_state['uploader_key'] += 1
+    st.success("App state cleared.")
+
+# Use the uploader key in the file uploader widget.
 st.subheader("📄 Upload PDF Files")
 st.write("Upload your PDF files to create a binder with the first pages of each file.")
-uploaded_files = st.file_uploader("Upload PDF files", type="pdf", accept_multiple_files=True)
+uploaded_files = st.file_uploader(
+    "Upload PDF files", 
+    type="pdf", 
+    accept_multiple_files=True, 
+    key=f"file_uploader_{st.session_state['uploader_key']}"
+)
 
-# Function to create a PDF binder
+# Function to create a PDF binder from the first pages of uploaded files.
 def create_pdf_binder(files):
     pdf_writer = PdfWriter()
     for uploaded_file in files:
         try:
             pdf_reader = PdfReader(uploaded_file)
-            if len(pdf_reader.pages) > 0:  # Ensure the file has at least one page
+            if len(pdf_reader.pages) > 0:
                 first_page = pdf_reader.pages[0]
                 pdf_writer.add_page(first_page)
         except Exception as e:
             st.warning(f"Could not process file {uploaded_file.name}: {e}")
     return pdf_writer
 
-# Auto-create binder when files are uploaded
+# Auto-create binder when files are uploaded.
 if uploaded_files:
     st.subheader("🛠️ Binder Preview")
     with st.spinner("Creating binder..."):
