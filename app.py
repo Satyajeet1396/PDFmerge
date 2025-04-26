@@ -3,6 +3,7 @@ from PyPDF2 import PdfReader, PdfWriter
 from io import BytesIO
 import qrcode
 import base64
+import zipfile
 
 # Title and description
 st.title("PDF Binder Tool")
@@ -35,12 +36,34 @@ def create_pdf_binder(files):
             st.warning(f"Could not process file {uploaded_file.name}: {e}")
     return pdf_writer
 
-# Auto-create binder when files are uploaded.
+# Function to create a ZIP of individual first-page PDFs.
+def create_individual_zip(files):
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for uploaded_file in files:
+            try:
+                pdf_reader = PdfReader(uploaded_file)
+                if len(pdf_reader.pages) > 0:
+                    writer = PdfWriter()
+                    writer.add_page(pdf_reader.pages[0])
+                    temp_buffer = BytesIO()
+                    writer.write(temp_buffer)
+                    temp_buffer.seek(0)
+                    # ensure unique name for each first-page file
+                    name = uploaded_file.name.replace('.pdf', '') + '_first_page.pdf'
+                    zf.writestr(name, temp_buffer.read())
+            except Exception as e:
+                st.warning(f"Could not process file {uploaded_file.name}: {e}")
+    zip_buffer.seek(0)
+    return zip_buffer
+
+# Auto-create binder and individual download when files are uploaded.
 if uploaded_files:
     st.subheader("🛠️ Binder Preview")
     with st.spinner("Creating binder..."):
         pdf_writer = create_pdf_binder(uploaded_files)
     if pdf_writer.pages:
+        # Binder download
         binder_output = BytesIO()
         pdf_writer.write(binder_output)
         binder_output.seek(0)
@@ -50,16 +73,24 @@ if uploaded_files:
             file_name="binder.pdf",
             mime="application/pdf"
         )
-        st.success("Binder created successfully!")
+        # Individual pages ZIP download
+        zip_buffer = create_individual_zip(uploaded_files)
+        st.download_button(
+            label="Download Individual First Pages (ZIP)",
+            data=zip_buffer,
+            file_name="first_pages.zip",
+            mime="application/zip"
+        )
+        st.success("Downloads ready! 🎉")
     else:
         st.warning("No pages found in the uploaded PDF files.")
     
-    # Clear / Reboot App button placed after the binder is created.
+    # Clear / Reboot App button placed after downloads
     if st.button("Clear / Reboot App"):
         st.session_state['uploader_key'] += 1
         st.success("App state cleared. Please re-upload your files if needed.")
 else:
-    st.info("Upload PDF files to automatically create a binder.")
+    st.info("Upload PDF files to automatically create a binder or individual downloads.")
 
 # Info section about the creator
 st.info("Created by Dr. Satyajeet Patil")
